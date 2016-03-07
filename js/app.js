@@ -7,7 +7,7 @@ var Enemy = function(x, y) {
     // a helper we've provided to easily load images
     this.x = x;
     this.y = y;
-    this.speed = 50;
+    this.speed = 40;
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -15,7 +15,7 @@ var Enemy = function(x, y) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
-    if (this.x >= 500) {
+    if (this.x >= 500) { // if enemies x coordinate is off-screen
         this.x = 0;
     };
 
@@ -32,24 +32,43 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function() {
-    this.x = 200;
-    this.y = 450;
+var Player = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.speed = 40
     this.sprite = 'images/char-princess-girl.png';
 
 };
 
 Player.prototype.update = function (dt) {
-   // this.x += this.speed *dt;
+   //this.y += this.speed * dt;
 };
+
+
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
 };
 
+Player.prototype.handleInput = function(direction) {
+    if (direction === 'up' && this.y <= 440) {
+       this.y -= 50;
+    }
 
+    if (direction === 'rdown' && this.y >= 0) {
+        this.y += 50;
+    }
 
+    if (direction === 'left' && this.x >= 0) {
+        this.x -= 50;
+    }
+
+     if (direction === 'right' && this.x >= 0) {
+        this.x += 50;
+    }
+
+};
 
 
 
@@ -70,7 +89,11 @@ var enemyTwo = new Enemy (0, 225, 50);
 allEnemies.push(enemyTwo);
 
 
-var player = new Player ();
+//var player = [];
+//var playerOne = new Player (0, 450, 50);
+//player.push(playerOne);
+
+var player = new Player (200, 440, 50);
 
 
 // This listens for key presses and sends the keys to your
@@ -85,3 +108,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
