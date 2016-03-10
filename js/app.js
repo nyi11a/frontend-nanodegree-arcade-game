@@ -1,74 +1,103 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
+    this.height = 171;
+    this.width = 101;
     this.x = x;
     this.y = y;
-    this.speed = 40;
+    this.speed = speed;
     this.sprite = 'images/enemy-bug.png';
-};
+}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    this.x += this.speed * dt;
+    //this.x += this.speed * dt;
+    //make enemy movements random
+    this.x += Math.floor(Math.random() * this.speed + (150)) * dt
     if (this.x >= 500) { // if enemies x coordinate is off-screen
         this.x = 0;
-    };
+    }
+
+    this.checkCollisions(allEnemies, player);
+}
 
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+}
+
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(x, y) {
+    this.height = 171;
+    this.width = 101;
     this.x = x;
     this.y = y;
-    this.speed = 40
+    //this.speed = 40
     this.sprite = 'images/char-princess-girl.png';
 
-};
+}
 
-Player.prototype.update = function (dt) {
+Player.prototype.update = function () {
    //this.y += this.speed * dt;
-};
+     if (this.y <= -45) {
+        alert('Congratulations! you won!');
+        this.reset (200, 440);
+    }
+}
 
 
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
-};
+}
 
 Player.prototype.handleInput = function(direction) {
     if (direction === 'up' && this.y <= 440) {
-       this.y -= 50;
+       this.y -= 68;
     }
 
     if (direction === 'rdown' && this.y >= 0) {
-        this.y += 50;
+        this.y += 68;
     }
 
     if (direction === 'left' && this.x >= 0) {
-        this.x -= 50;
+        this.x -= 100;
     }
 
      if (direction === 'right' && this.x >= 0) {
-        this.x += 50;
+        this.x += 100;
     }
 
-};
+}
+
+
+Player.prototype.reset = function (x, y) {
+        this.y = y;
+        this.x = x;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -81,19 +110,31 @@ Player.prototype.handleInput = function(direction) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
-var enemy = new Enemy (0, 50, 50);
+var enemy = new Enemy (0, 50, 200);
 allEnemies.push(enemy);
-var enemyOne = new Enemy (0, 125, 50);
+var enemyOne = new Enemy (0, 125, 350);
 allEnemies.push(enemyOne);
-var enemyTwo = new Enemy (0, 225, 50);
+var enemyTwo = new Enemy (0, 225, 250);
 allEnemies.push(enemyTwo);
 
+var player = new Player (200, 440, 50);
+Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) {
+    for (var i = 0; i < allEnemies.length; i++) {
+        if (allEnemies[i].x < player.x + 50 &&
+        allEnemies[i].x + 50 > player.x &&
+        allEnemies[i].y < player.y + 70 &&
+        70 + allEnemies[i].y > player.y) {
+            alert('You lost! try again!')
+            player.reset (240, 440);
+        };
+
+}}
 
 //var player = [];
 //var playerOne = new Player (0, 450, 50);
 //player.push(playerOne);
 
-var player = new Player (200, 440, 50);
+
 
 
 // This listens for key presses and sends the keys to your
@@ -108,5 +149,6 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
 
 

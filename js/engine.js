@@ -63,6 +63,8 @@ var Engine = (function(global) {
      * particularly setting the lastTime variable that is required for the
      * game loop.
      */
+
+
     function init() {
         reset();
         lastTime = Date.now();
@@ -80,7 +82,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        //checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -160,6 +162,7 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
+
     }
 
     /* Go ahead and load all of the images we know we're going to need to
