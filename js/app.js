@@ -125,7 +125,7 @@ Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) 
         allEnemies[i].y < player.y + 70 &&
         70 + allEnemies[i].y > player.y) {
             alert('You lost! try again!')
-            player.reset (240, 440);
+            player.reset (200, 440);
         };
 
 }}
