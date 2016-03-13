@@ -90,19 +90,6 @@ Player.prototype.update = function () {
 
 }
 
-Player.prototype.score = function drawScore() {
-
-}
-//Player.prototype.score = function() {
-   // if (this.y <= -44) {
-      //  for (var i = 0; i < 10; i++) {
-       //   this.score.push(1);
-       // }
-
-
-   // }
-//}
-
 
 
 Player.prototype.render = function() {
@@ -139,6 +126,16 @@ Player.prototype.reset = function (x, y) {
 
 
 
+
+//Player.prototype.score = function() {
+   // if (this.y <= -44) {
+      //  for (var i = 0; i < 10; i++) {
+       //   this.score.push(1);
+       // }
+
+
+   // }
+//}
 
 
 
