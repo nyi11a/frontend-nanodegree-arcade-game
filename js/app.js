@@ -51,10 +51,10 @@ var Player = function(x, y) {
 
 Player.prototype.update = function () {
    //this.y += this.speed * dt;
-    if (this.y <= -10) {
+    if (this.y <= -44) {
         alert('Congratulations! you won!');
-        //setTimeout(this.reset (200, 440), 5000)
-        this.reset (200, 440)
+        //setTimeout(this.reset (200, 435), 5000)
+        this.reset (200, 435);
     }
 
     if (this.x < 0) {
@@ -62,11 +62,11 @@ Player.prototype.update = function () {
     } else if (this.x > 400) {
         this.x = 400;
     } else if (this.y === 0) {
-        this.y = 400;
+        this.y = 435;
    // } else if (this.y < 0) {
     //    this.y = 0;
-    } else if (this.y > 400) {
-        this.y = 400;
+    } else if (this.y > 435) {
+        this.y = 435;
     }
 
 }
@@ -79,11 +79,11 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.handleInput = function(direction) {
-    if (direction === 'up' && this.y <= 440) {
-       this.y -= 67;
+    if (direction === 'up' && this.y <= 435) {
+       this.y -= 68;
     }
 
-    if (direction === 'down' && this.y >= 0) {
+    if (direction === 'down' && this.y >= -45) {
         this.y += 68;
     }
 
@@ -131,15 +131,15 @@ allEnemies.push(enemyOne);
 var enemyTwo = new Enemy (0, 225, 250);
 allEnemies.push(enemyTwo);
 
-var player = new Player (200, 440);
+var player = new Player (200, 435);
 Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) {
     for (var i = 0; i < allEnemies.length; i++) {
-        if (allEnemies[i].x < player.x + 70 &&
-        allEnemies[i].x + 70 > player.x &&
-        allEnemies[i].y < player.y + 50 &&
-        50 + allEnemies[i].y > player.y) {
+        if (allEnemies[i].x < player.x + 50 &&
+        allEnemies[i].x + 50 > player.x &&
+        allEnemies[i].y < player.y + 70 &&
+        70 + allEnemies[i].y > player.y) {
             alert('You lost! try again!')
-            player.reset (200, 440);
+            player.reset (200, 435);
         };
 
 }}

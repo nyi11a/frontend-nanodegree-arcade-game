@@ -137,7 +137,7 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
+        ctx.clearRect(0, 0, canvas.width, 50); // Clears content from the top part of the canvas each time through the game loop
         renderEntities();
     }
 
