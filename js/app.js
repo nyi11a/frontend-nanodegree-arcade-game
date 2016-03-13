@@ -1,3 +1,7 @@
+
+var score = 0;
+
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -46,16 +50,31 @@ var Player = function(x, y) {
     this.y = y;
     //this.speed = 40
     this.sprite = 'images/char-princess-girl.png';
+   // this.score = 0;
+    //this.points = 0;
 
 }
 
 Player.prototype.update = function () {
    //this.y += this.speed * dt;
+   //document.getElementById("score").innerHTML = score;
     if (this.y <= -44) {
-        alert('Congratulations! you won!');
+        alert('Congratulations! you made it across!');
         //setTimeout(this.reset (200, 435), 5000)
         this.reset (200, 435);
+        score++;
+        //console.log(score);
+        document.getElementById("score").innerHTML = 'Your Score = ' + score;
     }
+
+    if (score >= 2) {
+        console.log(score);
+        document.getElementById('score').innerHTML = 'Your Score = ' + score;
+        alert('Congratulations! You have total a score of ' + score + ' You won the game!');
+        score = 0;
+        //console.log(score);
+        document.getElementById('score').innerHTML = 'Your Score = ' + score;
+            }
 
     if (this.x < 0) {
         this.x = 0;
@@ -70,6 +89,19 @@ Player.prototype.update = function () {
     }
 
 }
+
+Player.prototype.score = function drawScore() {
+
+}
+//Player.prototype.score = function() {
+   // if (this.y <= -44) {
+      //  for (var i = 0; i < 10; i++) {
+       //   this.score.push(1);
+       // }
+
+
+   // }
+//}
 
 
 
@@ -136,8 +168,8 @@ Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) 
     for (var i = 0; i < allEnemies.length; i++) {
         if (allEnemies[i].x < player.x + 50 &&
         allEnemies[i].x + 50 > player.x &&
-        allEnemies[i].y < player.y + 70 &&
-        70 + allEnemies[i].y > player.y) {
+        allEnemies[i].y < player.y + 40 &&
+        40 + allEnemies[i].y > player.y) {
             alert('You lost! try again!')
             player.reset (200, 435);
         };

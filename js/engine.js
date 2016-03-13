@@ -138,6 +138,11 @@ var Engine = (function(global) {
             }
         }
         ctx.clearRect(0, 0, canvas.width, 50); // Clears content from the top part of the canvas each time through the game loop
+    function drawScore() {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "#0095DD";
+        ctx.fillText("Score: "+score, -100, 200);
+        }
         renderEntities();
     }
 
@@ -155,6 +160,7 @@ var Engine = (function(global) {
 
         player.render();
     }
+
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
