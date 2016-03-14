@@ -137,10 +137,11 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-        ctx.clearRect(0, 0, canvas.width, 50); // Clears content from the top part of the canvas each time through the game loop
+        ctx.clearRect(0, 0, canvas.width, 50); // Clears content from the top part of the canvas each time through the game loop source: https://discussions.udacity.com/t/help-with-calculating-the-pixel-values-for-bugs/46238/9
         ctx.font = "16px Arial";
         ctx.fillStyle = "#0095DD";
         ctx.fillText("Score: "+score, 100, 200);
+        // formatting for Score within the Canvas. Source: https://developer.mozilla.org/en-US/docs/Games/Workflows/2D_Breakout_game_pure_JavaScript/Track_the_score_and_win
 
         renderEntities();
     }

@@ -64,17 +64,17 @@ Player.prototype.update = function () {
         this.reset (200, 435);
         score++;
         //console.log(score);
-        document.getElementById("score").innerHTML = 'Your Score = ' + score;
-    }
-
-    if (score >= 2) {
-        console.log(score);
+        document.getElementById("score").innerHTML = 'Your Score is ' + score;
+        if (score >= 2) {
         document.getElementById('score').innerHTML = 'Your Score = ' + score;
         alert('Congratulations! You have total a score of ' + score + ' You won the game!');
-        score = 0;
         //console.log(score);
-        document.getElementById('score').innerHTML = 'Your Score = ' + score;
-            }
+        //this.reset (200, 435);
+        //score = 0;
+        setTimeout(function () {document.location.reload()}, 2000);
+        //document.getElementById('score').innerHTML = 'Your Score is ' + score;
+    }
+    }
 
     if (this.x < 0) {
         this.x = 0;
@@ -126,29 +126,6 @@ Player.prototype.reset = function (x, y) {
 
 
 
-
-//Player.prototype.score = function() {
-   // if (this.y <= -44) {
-      //  for (var i = 0; i < 10; i++) {
-       //   this.score.push(1);
-       // }
-
-
-   // }
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -161,6 +138,7 @@ var enemyTwo = new Enemy (0, 225, 250);
 allEnemies.push(enemyTwo);
 
 var player = new Player (200, 435);
+
 Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) {
     for (var i = 0; i < allEnemies.length; i++) {
         if (allEnemies[i].x < player.x + 50 &&
