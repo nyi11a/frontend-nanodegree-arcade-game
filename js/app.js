@@ -15,7 +15,7 @@ var Enemy = function(x, y, speed) {
     this.y = y;
     this.speed = speed;
     this.sprite = 'images/enemy-bug.png';
-};
+}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -24,11 +24,10 @@ Enemy.prototype.update = function(dt) {
     //make enemy movements random
     this.x += Math.floor(Math.random() * this.speed + (150)) * dt;
     if (this.x >= 500) { // if enemies x coordinate is off-screen
-        this.x = 0;
+    this.x = 0;
     }
-
     this.checkCollisions(allEnemies, player);
-};
+    }
 
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -37,7 +36,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+    }
 
 
 // Now write your own player class
@@ -48,35 +47,12 @@ var Player = function(x, y) {
     this.width = 101;
     this.x = x;
     this.y = y;
-    //this.speed = 40
     this.sprite = 'images/char-princess-girl.png';
-   // this.score = 0;
-    //this.points = 0;
 
-};
+
+}
 
 Player.prototype.update = function () {
-   //this.y += this.speed * dt;
-   //document.getElementById("score").innerHTML = score;
-    if (this.y <= -44) {
-        alert('Congratulations! you made it across!');
-        //setTimeout(this.reset (200, 435), 5000)
-        this.reset (200, 435);
-        score++;
-        //console.log(score);
-        document.getElementById("score").innerHTML = 'Your Score is ' + score;
-        if (score >= 2) {
-            document.getElementById('score').innerHTML = 'Your Score is ' + score;
-            alert('Congratulations! You have total a score of ' + score + ' You won the game!');
-        //console.log(score);
-        //this.reset (200, 435);
-        //score = 0;
-
-
-        //setTimeout(function () {document.location.reload()}, 1000);
-        //}
-        //document.getElementById('score').innerHTML = 'Your Score is ' + score;
-    }
 
     if (this.x < 0) {
         this.x = 0;
@@ -89,15 +65,36 @@ Player.prototype.update = function () {
     } else if (this.y > 435) {
         this.y = 435;
     }
+   //this.y += this.speed * dt;
+   //document.getElementById("score").innerHTML = score;
+    if (this.y <= -44) {
+        score++;
+        alert('Congratulations! you made it across!');
+        //setTimeout(this.reset (200, 435), 5000)
+        document.getElementById("score").innerHTML = 'Your Score is ' + score;
+        this.reset (200, 435);
 
-}};
+        //console.log(score);
+    }
+
+    if (score >= 2) {
+        document.getElementById('score').innerHTML = 'Your Score is ' + score;
+            alert('Congratulations! You have total a score of ' + score + ' You won the game!');
+        //console.log(score);
+        //this.reset (200, 435);
+        //score = 0;
+    }
+        //setTimeout(function () {document.location.reload()}, 1000);
+        //}
+        //document.getElementById('score').innerHTML = 'Your Score is ' + score;
+    }
 
 
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
-};
+}
 
 Player.prototype.handleInput = function(direction) {
     if (direction === 'up' && this.y <= 435) {
@@ -142,8 +139,6 @@ allEnemies.push(enemyTwo);
 var player = new Player (200, 435);
 
 Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) {
-
-
     for (var i = 0; i < allEnemies.length; i++) {
         if (allEnemies[i].x < player.x + 50 &&
         allEnemies[i].x + 50 > player.x &&
@@ -151,22 +146,18 @@ Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) 
         40 + allEnemies[i].y > player.y) {
             alert('You lost! try again!');
             player.reset (200, 435);
-            lives = lives - 1;
-
-        if (score >= 1) {
-            score = score - 1;
-            document.getElementById("score").innerHTML = 'Your Score is ' + score;
-        }
+            lives--;
+            if (score >= 1) {
+            score--;
+            document.getElementById("score").innerHTML = 'Your Score is ' +score;
+            }
 
         if (lives <= 0) {
-            alert('You have lost all your lives. Game over');
-            setTimeout(function () {document.location.reload()}, 1000);
-
-
+        alert('You have lost all your lives. Game over');
+        //document.location.reload();
         }
-        }
+    }}
 
-}
 };
 
 //var player = [];

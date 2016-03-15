@@ -93,26 +93,46 @@ var Engine = (function(global) {
                     }
                 });
                 break;
+
         case 'inGame':
             updateEntities(dt);
             //checkCollisions();
             if (score >= 2) {
                 currentGameState = 'gameOver';
-            };
+            }
+            if (lives <= 0) {
+                currentGameState = 'gameOverLost';
+            }
             break;
+
         case 'gameOver':
                 document.addEventListener('keypress', function (e) {
                     var key = e.which || e.keyCode;
                     if (key === 13) {
-                        setTimeout(function () {document.location.reload()}, 1000);
-                        //currentGameState = 'start';
+                        //document.location.reload();
+                        currentGameState = 'start';
+                    }
 
+                });
+                break;
+
+         case 'gameOverLost':
+                document.addEventListener('keypress', function (e) {
+                    var key = e.which || e.keyCode;
+                    if (key === 13) {
+                        //document.location.reload();
+                        currentGameState = 'start';
                     }
                 });
                 break;
-    }
 
 }
+
+}
+
+
+
+
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
@@ -178,7 +198,7 @@ var Engine = (function(global) {
             break;
 
 
-        case 'inGame':
+        case'inGame':
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
@@ -211,19 +231,19 @@ var Engine = (function(global) {
             }
         }
         ctx.clearRect(0, 0, canvas.width, 50); // Clears content from the top part of the canvas each time through the game loop source: https://discussions.udacity.com/t/help-with-calculating-the-pixel-values-for-bugs/46238/9
+
         ctx.font = '30px Poiret One';
         ctx.fillStyle = '#0095DD';
         ctx.fillText("Score: "+score, 100, 200);
         ctx.fillText("Lives: "+lives, 300, 200);
 
         // formatting for Score within the Canvas. Source: https://developer.mozilla.org/en-US/docs/Games/Workflows/2D_Breakout_game_pure_JavaScript/Track_the_score_and_win
-
         renderEntities();
 
         break;
 
 
-        case'gameOver':
+        case 'gameOver':
          // Display an empty game board with text here
             var rowImages = [
                     'images/water-block.png',   // Top row is water
@@ -246,21 +266,52 @@ var Engine = (function(global) {
                     ctx.textAlign = "center";
                     ctx.fillText('Game Over', canvas.width/2, canvas.height/5.5);
 
-                    ctx.fillStyle = 'red';
-                    ctx.font = '20px Poiret One';
-                    ctx.textAlign = "center";
-                    ctx.fillText('Thanks for Playing!', canvas.width/2, canvas.height/3.3);
-
                     ctx.fillStyle = "red";
                     ctx.font = '25px Poiret One';
                     ctx.textAlign = 'center';
                     ctx.fillText("Press Enter To Start Again", canvas.width/2, canvas.height/4);
-                    break;
 
-            }}
-    }
+                    ctx.fillStyle = 'red';
+                    ctx.font = '20px Poiret One';
+                    ctx.textAlign = "center";
+                    ctx.fillText('Thanks for Playing!', canvas.width/2, canvas.height/3.3);
+                    }}
+                  break;
 
-}
+
+
+        case'gameOverLost':
+         // Display an empty game board with text here
+            var rowImages = [
+                    'images/water-block.png',   // Top row is water
+                    'images/stone-block.png',   // Row 1 of 3 of stone
+                    'images/stone-block.png',   // Row 2 of 3 of stone
+                    'images/stone-block.png',   // Row 3 of 3 of stone
+                    'images/grass-block.png',   // Row 1 of 2 of grass
+                    'images/grass-block.png'    // Row 2 of 2 of grass
+                ],
+                numRows = 6,
+                numCols = 5,
+                row, col;
+
+            for (row = 0; row < numRows; row++) {
+                for (col = 0; col < numCols; col++) {
+                    ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                    // Text to display over the game board
+                    ctx.fillStyle = 'red';
+                    ctx.font = '25px Poiret One';
+                    ctx.textAlign = "center";
+                    ctx.fillText('Sorry, you lost. Game Over', canvas.width/2, canvas.height/5.5);
+
+                    ctx.fillStyle = "red";
+                    ctx.font = '20px Poiret One';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("You can press Enter to try again", canvas.width/2, canvas.height/4);
+
+    }}
+    break;
+
+}}
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
      * on your enemy and player entities within app.js
@@ -308,4 +359,4 @@ var Engine = (function(global) {
     global.ctx = ctx;
     global.currentGameState = currentGameState;
 }
-)(this);
+      )(this);
