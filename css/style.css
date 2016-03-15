@@ -1,3 +1,8 @@
 body {
     text-align: center;
+	font-family: 'Poiret One', cursive;
+}
+
+h1 {
+	font-weight: bolder;
 }
