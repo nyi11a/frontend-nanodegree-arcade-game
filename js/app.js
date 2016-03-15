@@ -1,4 +1,5 @@
 var score = 0;
+var lives = 5;
 
 
 // Enemies our player must avoid
@@ -65,7 +66,7 @@ Player.prototype.update = function () {
         //console.log(score);
         document.getElementById("score").innerHTML = 'Your Score is ' + score;
         if (score >= 2) {
-            document.getElementById('score').innerHTML = 'Your Score = ' + score;
+            document.getElementById('score').innerHTML = 'Your Score is ' + score;
             alert('Congratulations! You have total a score of ' + score + ' You won the game!');
         //console.log(score);
         //this.reset (200, 435);
@@ -141,6 +142,8 @@ allEnemies.push(enemyTwo);
 var player = new Player (200, 435);
 
 Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) {
+
+
     for (var i = 0; i < allEnemies.length; i++) {
         if (allEnemies[i].x < player.x + 50 &&
         allEnemies[i].x + 50 > player.x &&
@@ -148,6 +151,19 @@ Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) 
         40 + allEnemies[i].y > player.y) {
             alert('You lost! try again!');
             player.reset (200, 435);
+            lives = lives - 1;
+
+        if (score >= 1) {
+            score = score - 1;
+            document.getElementById("score").innerHTML = 'Your Score is ' + score;
+        }
+
+        if (lives <= 0) {
+            alert('You have lost all your lives. Game over');
+            setTimeout(function () {document.location.reload()}, 1000);
+
+
+        }
         }
 
 }
