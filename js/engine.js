@@ -13,7 +13,6 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -84,32 +83,32 @@ var Engine = (function(global) {
     function update(dt) {
         switch (currentGameState) {
             //finite state machine to monitor game states
-        case 'start':
+            case 'start':
 
-            // Code Adapted from code in Udacity forum and Stackoverflow: sources: https://discussions.udacity.com/t/finite-state-machine-and-event-listener-weirdness/34554/2
-            // and  http://stackoverflow.com/questions/14542062/eventlistener-enter-key
-            //and https://discussions.udacity.com/t/finite-state-machine-to-model-game-states/21955
-            document.addEventListener('keypress', function (e) {
-                var key = e.which || e.keyCode;
-                if (key === 13) {
-                    currentGameState = 'inGame';
+                // Code Adapted from code in Udacity forum and Stackoverflow: sources: https://discussions.udacity.com/t/finite-state-machine-and-event-listener-weirdness/34554/2
+                // and  http://stackoverflow.com/questions/14542062/eventlistener-enter-key
+                //and https://discussions.udacity.com/t/finite-state-machine-to-model-game-states/21955
+                document.addEventListener('keypress', function(e) {
+                    var key = e.which || e.keyCode;
+                    if (key === 13) {
+                        currentGameState = 'inGame';
                     }
                 });
                 break;
 
-        case 'inGame':
-            updateEntities(dt);
-            //checkCollisions();
-            if (score >= 2) {
-                currentGameState = 'gameOver';
-            }
-            if (lives <= 0) {
-                currentGameState = 'gameOverLost';
-            }
-            break;
+            case 'inGame':
+                updateEntities(dt);
+                //checkCollisions();
+                if (score >= 2) {
+                    currentGameState = 'gameOver';
+                }
+                if (lives <= 0) {
+                    currentGameState = 'gameOverLost';
+                }
+                break;
 
-        case 'gameOver':
-                document.addEventListener('keypress', function (e) {
+            case 'gameOver':
+                document.addEventListener('keypress', function(e) {
                     var key = e.which || e.keyCode;
                     if (key === 13) {
                         document.location.reload();
@@ -119,8 +118,8 @@ var Engine = (function(global) {
                 });
                 break;
 
-         case 'gameOverLost':
-                document.addEventListener('keypress', function (e) {
+            case 'gameOverLost':
+                document.addEventListener('keypress', function(e) {
                     var key = e.which || e.keyCode;
                     if (key === 13) {
                         document.location.reload();
@@ -129,9 +128,9 @@ var Engine = (function(global) {
                 });
                 break;
 
-}
+        }
 
-}
+    }
 
 
 
@@ -158,162 +157,165 @@ var Engine = (function(global) {
      */
     function render() {
         switch (currentGameState) {
-        case "start":
-            // Display an empty game board with text
-            var rowImages = [
-                    'images/water-block.png',   // Top row is water
-                    'images/stone-block.png',   // Row 1 of 3 of stone
-                    'images/stone-block.png',   // Row 2 of 3 of stone
-                    'images/stone-block.png',   // Row 3 of 3 of stone
-                    'images/grass-block.png',   // Row 1 of 2 of grass
-                    'images/grass-block.png'    // Row 2 of 2 of grass
-                ],
-                numRows = 6,
-                numCols = 5,
-                row, col;
+            case "start":
+                // Display an empty game board with text
+                var rowImages = [
+                        'images/water-block.png', // Top row is water
+                        'images/stone-block.png', // Row 1 of 3 of stone
+                        'images/stone-block.png', // Row 2 of 3 of stone
+                        'images/stone-block.png', // Row 3 of 3 of stone
+                        'images/grass-block.png', // Row 1 of 2 of grass
+                        'images/grass-block.png' // Row 2 of 2 of grass
+                    ],
+                    numRows = 6,
+                    numCols = 5,
+                    row, col;
 
-            for (row = 0; row < numRows; row++) {
-                for (col = 0; col < numCols; col++) {
-                    ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
-                    // Text for display on empty game board
-                    ctx.fillStyle = 'white';
-                    ctx.font = '50px Poiret One';
-                    ctx.textAlign = "center";
-                    ctx.fillText('Game Rules', canvas.width/2, canvas.height/5.5);
-                    ctx.fillStyle = "red";
-                    ctx.font = '25px Poiret One';
-                    ctx.textAlign = 'center';
-                    ctx.fillText("Press Enter To Start", canvas.width/2, canvas.height/4);
-                    ctx.fillStyle = 'red';
-                    ctx.font = '20px Poiret One';
-                    ctx.textAlign = "center";
-                    ctx.fillText('Use the arrow keys to move', canvas.width/2, canvas.height/3.3);
-                    ctx.fillText('Cross the grass and stone streets to get to the water.', canvas.width/2, canvas.height/3.0);
-                    ctx.fillText("If you crash into a ladybug, you lose a life", canvas.width/2, canvas.height/2.37);
-                    ctx.fillStyle = "red";
-                    ctx.font = '20px Poiret One';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('Reach the water 5 times and you win the game!', canvas.width/2, canvas.height/2.1);
+                for (row = 0; row < numRows; row++) {
+                    for (col = 0; col < numCols; col++) {
+                        ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                        // Text for display on empty game board
+                        ctx.fillStyle = 'white';
+                        ctx.font = '50px Poiret One';
+                        ctx.textAlign = "center";
+                        ctx.fillText('Game Rules', canvas.width / 2, canvas.height / 5.5);
+                        ctx.fillStyle = "red";
+                        ctx.font = '25px Poiret One';
+                        ctx.textAlign = 'center';
+                        ctx.fillText("Press Enter To Start", canvas.width / 2, canvas.height / 4);
+                        ctx.fillStyle = 'red';
+                        ctx.font = '20px Poiret One';
+                        ctx.textAlign = "center";
+                        ctx.fillText('Use the arrow keys to move', canvas.width / 2, canvas.height / 3.3);
+                        ctx.fillText('Cross the grass and stone streets to get to the water.', canvas.width / 2, canvas.height / 3.0);
+                        ctx.fillText("If you crash into a ladybug, you lose a life", canvas.width / 2, canvas.height / 2.37);
+                        ctx.fillStyle = "red";
+                        ctx.font = '20px Poiret One';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Reach the water 5 times and you win the game!', canvas.width / 2, canvas.height / 2.1);
+                    }
                 }
-            }
-            break;
+                break;
 
 
-        case'inGame':
-        /* This array holds the relative URL to the image used
-         * for that particular row of the game level.
-         */
-        var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'   // Row 2 of 2 of grass
-            ],
-            numRows = 6,
-            numCols = 5,
-            row, col;
-
-        /* Loop through the number of rows and columns we've defined above
-         * and, using the rowImages array, draw the correct image for that
-         * portion of the "grid"
-         */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
-                /* The drawImage function of the canvas' context element
-                 * requires 3 parameters: the image to draw, the x coordinate
-                 * to start drawing and the y coordinate to start drawing.
-                 * We're using our Resources helpers to refer to our images
-                 * so that we get the benefits of caching these images, since
-                 * we're using them over and over.
+            case 'inGame':
+                /* This array holds the relative URL to the image used
+                 * for that particular row of the game level.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
-            }
+                var rowImages = [
+                        'images/water-block.png', // Top row is water
+                        'images/stone-block.png', // Row 1 of 3 of stone
+                        'images/stone-block.png', // Row 2 of 3 of stone
+                        'images/stone-block.png', // Row 3 of 3 of stone
+                        'images/grass-block.png', // Row 1 of 2 of grass
+                        'images/grass-block.png' // Row 2 of 2 of grass
+                    ],
+                    numRows = 6,
+                    numCols = 5,
+                    row, col;
+
+                /* Loop through the number of rows and columns we've defined above
+                 * and, using the rowImages array, draw the correct image for that
+                 * portion of the "grid"
+                 */
+                for (row = 0; row < numRows; row++) {
+                    for (col = 0; col < numCols; col++) {
+                        /* The drawImage function of the canvas' context element
+                         * requires 3 parameters: the image to draw, the x coordinate
+                         * to start drawing and the y coordinate to start drawing.
+                         * We're using our Resources helpers to refer to our images
+                         * so that we get the benefits of caching these images, since
+                         * we're using them over and over.
+                         */
+                        ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                    }
+                }
+                ctx.clearRect(0, 0, canvas.width, 50); // Clears content from the top part of the canvas each time through the game loop source: https://discussions.udacity.com/t/help-with-calculating-the-pixel-values-for-bugs/46238/9
+
+                ctx.font = '30px Poiret One';
+                ctx.fillStyle = '#0095DD';
+                ctx.fillText("Score: " + score, 100, 200);
+                ctx.fillText("Lives: " + lives, 300, 200);
+
+                // formatting for Score within the Canvas. Source: https://developer.mozilla.org/en-US/docs/Games/Workflows/2D_Breakout_game_pure_JavaScript/Track_the_score_and_win
+                renderEntities();
+
+                break;
+
+
+            case 'gameOver':
+                // Display an empty game board with text here
+                var rowImages = [
+                        'images/water-block.png', // Top row is water
+                        'images/stone-block.png', // Row 1 of 3 of stone
+                        'images/stone-block.png', // Row 2 of 3 of stone
+                        'images/stone-block.png', // Row 3 of 3 of stone
+                        'images/grass-block.png', // Row 1 of 2 of grass
+                        'images/grass-block.png' // Row 2 of 2 of grass
+                    ],
+                    numRows = 6,
+                    numCols = 5,
+                    row, col;
+
+                for (row = 0; row < numRows; row++) {
+                    for (col = 0; col < numCols; col++) {
+                        ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                        // Text to display over the game board
+                        ctx.fillStyle = 'white';
+                        ctx.font = '50px Poiret One';
+                        ctx.textAlign = "center";
+                        ctx.fillText('Hooray! You Won!', canvas.width / 2, canvas.height / 5.5);
+
+                        ctx.fillStyle = "red";
+                        ctx.font = '25px Poiret One';
+                        ctx.textAlign = 'center';
+                        ctx.fillText("Press Enter To Start Again", canvas.width / 2, canvas.height / 4);
+
+                        ctx.fillStyle = 'red';
+                        ctx.font = '20px Poiret One';
+                        ctx.textAlign = "center";
+                        ctx.fillText('Game over. Thanks for Playing!', canvas.width / 2, canvas.height / 3.3);
+                    }
+                }
+                ctx.clearRect(0, 0, canvas.width, 50);
+                break;
+
+
+
+            case 'gameOverLost':
+                // Display an empty game board with text here
+                var rowImages = [
+                        'images/water-block.png', // Top row is water
+                        'images/stone-block.png', // Row 1 of 3 of stone
+                        'images/stone-block.png', // Row 2 of 3 of stone
+                        'images/stone-block.png', // Row 3 of 3 of stone
+                        'images/grass-block.png', // Row 1 of 2 of grass
+                        'images/grass-block.png' // Row 2 of 2 of grass
+                    ],
+                    numRows = 6,
+                    numCols = 5,
+                    row, col;
+
+                for (row = 0; row < numRows; row++) {
+                    for (col = 0; col < numCols; col++) {
+                        ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                        // Text to display over the game board
+                        ctx.fillStyle = 'red';
+                        ctx.font = '25px Poiret One';
+                        ctx.textAlign = "center";
+                        ctx.fillText('Sorry, you lost. Game Over.', canvas.width / 2, canvas.height / 5.5);
+
+                        ctx.fillStyle = "red";
+                        ctx.font = '20px Poiret One';
+                        ctx.textAlign = 'center';
+                        ctx.fillText("You can press Enter to try again", canvas.width / 2, canvas.height / 4);
+
+                    }
+                }
+                break;
+
         }
-        ctx.clearRect(0, 0, canvas.width, 50); // Clears content from the top part of the canvas each time through the game loop source: https://discussions.udacity.com/t/help-with-calculating-the-pixel-values-for-bugs/46238/9
-
-        ctx.font = '30px Poiret One';
-        ctx.fillStyle = '#0095DD';
-        ctx.fillText("Score: "+score, 100, 200);
-        ctx.fillText("Lives: "+lives, 300, 200);
-
-        // formatting for Score within the Canvas. Source: https://developer.mozilla.org/en-US/docs/Games/Workflows/2D_Breakout_game_pure_JavaScript/Track_the_score_and_win
-        renderEntities();
-
-        break;
-
-
-        case 'gameOver':
-         // Display an empty game board with text here
-            var rowImages = [
-                    'images/water-block.png',   // Top row is water
-                    'images/stone-block.png',   // Row 1 of 3 of stone
-                    'images/stone-block.png',   // Row 2 of 3 of stone
-                    'images/stone-block.png',   // Row 3 of 3 of stone
-                    'images/grass-block.png',   // Row 1 of 2 of grass
-                    'images/grass-block.png'    // Row 2 of 2 of grass
-                ],
-                numRows = 6,
-                numCols = 5,
-                row, col;
-
-            for (row = 0; row < numRows; row++) {
-                for (col = 0; col < numCols; col++) {
-                    ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
-                    // Text to display over the game board
-                    ctx.fillStyle = 'white';
-                    ctx.font = '50px Poiret One';
-                    ctx.textAlign = "center";
-                    ctx.fillText('Hooray! You Won!', canvas.width/2, canvas.height/5.5);
-
-                    ctx.fillStyle = "red";
-                    ctx.font = '25px Poiret One';
-                    ctx.textAlign = 'center';
-                    ctx.fillText("Press Enter To Start Again", canvas.width/2, canvas.height/4);
-
-                    ctx.fillStyle = 'red';
-                    ctx.font = '20px Poiret One';
-                    ctx.textAlign = "center";
-                    ctx.fillText('Game over. Thanks for Playing!', canvas.width/2, canvas.height/3.3);
-                    }}
-                    ctx.clearRect(0, 0, canvas.width, 50);
-                  break;
-
-
-
-        case'gameOverLost':
-         // Display an empty game board with text here
-            var rowImages = [
-                    'images/water-block.png',   // Top row is water
-                    'images/stone-block.png',   // Row 1 of 3 of stone
-                    'images/stone-block.png',   // Row 2 of 3 of stone
-                    'images/stone-block.png',   // Row 3 of 3 of stone
-                    'images/grass-block.png',   // Row 1 of 2 of grass
-                    'images/grass-block.png'    // Row 2 of 2 of grass
-                ],
-                numRows = 6,
-                numCols = 5,
-                row, col;
-
-            for (row = 0; row < numRows; row++) {
-                for (col = 0; col < numCols; col++) {
-                    ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
-                    // Text to display over the game board
-                    ctx.fillStyle = 'red';
-                    ctx.font = '25px Poiret One';
-                    ctx.textAlign = "center";
-                    ctx.fillText('Sorry, you lost. Game Over.', canvas.width/2, canvas.height/5.5);
-
-                    ctx.fillStyle = "red";
-                    ctx.font = '20px Poiret One';
-                    ctx.textAlign = 'center';
-                    ctx.fillText("You can press Enter to try again", canvas.width/2, canvas.height/4);
-
-    }}
-    break;
-
-}}
+    }
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
      * on your enemy and player entities within app.js
@@ -360,5 +362,4 @@ var Engine = (function(global) {
      */
     global.ctx = ctx;
     global.currentGameState = currentGameState;
-}
-      )(this);
+})(this);
