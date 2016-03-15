@@ -99,7 +99,7 @@ var Engine = (function(global) {
             case 'inGame':
                 updateEntities(dt);
                 //checkCollisions();
-                if (score >= 2) {
+                if (score >= 5) {
                     currentGameState = 'gameOver';
                 }
                 if (lives <= 0) {
@@ -261,6 +261,7 @@ var Engine = (function(global) {
                     for (col = 0; col < numCols; col++) {
                         ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
                         // Text to display over the game board
+                        //modeled after code found here: Source https://github.com/lacyjpr/arcade/blob/c0e7c735f991d4bfa927b87f2e3aea20e4bcffe6/js/engine.js
                         ctx.fillStyle = 'white';
                         ctx.font = '50px Poiret One';
                         ctx.textAlign = "center";

@@ -70,7 +70,7 @@ Player.prototype.update = function() {
         this.reset(200, 435);
     }
 
-    if (score >= 2) {
+    if (score >= 5) {
         document.getElementById('score').innerHTML = 'Your Score is ' + score;
         alert('Congratulations! You have total a score of ' + score + ' You won the game!');
 
