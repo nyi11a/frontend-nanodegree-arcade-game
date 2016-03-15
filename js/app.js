@@ -15,7 +15,7 @@ var Enemy = function(x, y, speed) {
     this.y = y;
     this.speed = speed;
     this.sprite = 'images/enemy-bug.png';
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -27,7 +27,7 @@ Enemy.prototype.update = function(dt) {
     this.x = 0;
     }
     this.checkCollisions(allEnemies, player);
-    }
+    };
 
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -36,7 +36,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
+    };
 
 
 // Now write your own player class
@@ -48,9 +48,7 @@ var Player = function(x, y) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/char-princess-girl.png';
-
-
-}
+};
 
 Player.prototype.update = function () {
 
@@ -60,41 +58,31 @@ Player.prototype.update = function () {
         this.x = 400;
     } else if (this.y === 0) {
         this.y = 435;
-   // } else if (this.y < 0) {
-    //    this.y = 0;
     } else if (this.y > 435) {
         this.y = 435;
     }
-   //this.y += this.speed * dt;
-   //document.getElementById("score").innerHTML = score;
+
     if (this.y <= -44) {
         score++;
         alert('Congratulations! you made it across!');
         //setTimeout(this.reset (200, 435), 5000)
         document.getElementById("score").innerHTML = 'Your Score is ' + score;
         this.reset (200, 435);
-
-        //console.log(score);
     }
 
     if (score >= 2) {
         document.getElementById('score').innerHTML = 'Your Score is ' + score;
             alert('Congratulations! You have total a score of ' + score + ' You won the game!');
-        //console.log(score);
-        //this.reset (200, 435);
-        //score = 0;
+
     }
-        //setTimeout(function () {document.location.reload()}, 1000);
-        //}
-        //document.getElementById('score').innerHTML = 'Your Score is ' + score;
-    }
+
+    };
 
 
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-
-}
+};
 
 Player.prototype.handleInput = function(direction) {
     if (direction === 'up' && this.y <= 435) {
@@ -125,9 +113,9 @@ Player.prototype.reset = function (x, y) {
 
 
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+// Instantiated your objects.
+// All enemy objects in an array called allEnemies
+// Player object in a variable called player
 var allEnemies = [];
 var enemy = new Enemy (0, 50, 200);
 allEnemies.push(enemy);
@@ -138,7 +126,8 @@ allEnemies.push(enemyTwo);
 
 var player = new Player (200, 435);
 
-Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) {
+Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) //check to see if player collides with enemy. Adapted from code on MDN. Source: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    {
     for (var i = 0; i < allEnemies.length; i++) {
         if (allEnemies[i].x < player.x + 50 &&
         allEnemies[i].x + 50 > player.x &&
@@ -154,15 +143,12 @@ Enemy.prototype.checkCollisions = function checkCollisions (allEnemies, player) 
 
         if (lives <= 0) {
         alert('You have lost all your lives. Game over');
-        //document.location.reload();
         }
     }}
 
 };
 
-//var player = [];
-//var playerOne = new Player (0, 450, 50);
-//player.push(playerOne);
+
 
 
 
@@ -177,7 +163,6 @@ document.addEventListener('keyup', function(e) {
         40: 'down',
         13: 'enter'
     };
-
+// the the key for enter- which is used to switch from game state to game state
     player.handleInput(allowedKeys[e.keyCode]);
 });
-

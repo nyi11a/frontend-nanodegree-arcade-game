@@ -83,9 +83,12 @@ var Engine = (function(global) {
      */
     function update(dt) {
         switch (currentGameState) {
+            //finite state machine to monitor game states
         case 'start':
-            // Is there anything you need to do?
-            // Credit http://stackoverflow.com/questions/14542062/eventlistener-enter-key
+
+            // Code Adapted from code in Udacity forum and Stackoverflow: sources: https://discussions.udacity.com/t/finite-state-machine-and-event-listener-weirdness/34554/2
+            // and  http://stackoverflow.com/questions/14542062/eventlistener-enter-key
+            //and https://discussions.udacity.com/t/finite-state-machine-to-model-game-states/21955
             document.addEventListener('keypress', function (e) {
                 var key = e.which || e.keyCode;
                 if (key === 13) {
@@ -109,7 +112,7 @@ var Engine = (function(global) {
                 document.addEventListener('keypress', function (e) {
                     var key = e.which || e.keyCode;
                     if (key === 13) {
-                        //document.location.reload();
+                        document.location.reload();
                         currentGameState = 'start';
                     }
 
@@ -120,7 +123,7 @@ var Engine = (function(global) {
                 document.addEventListener('keypress', function (e) {
                     var key = e.which || e.keyCode;
                     if (key === 13) {
-                        //document.location.reload();
+                        document.location.reload();
                         currentGameState = 'start';
                     }
                 });
@@ -156,7 +159,7 @@ var Engine = (function(global) {
     function render() {
         switch (currentGameState) {
         case "start":
-            // Display an empty game board with text here
+            // Display an empty game board with text
             var rowImages = [
                     'images/water-block.png',   // Top row is water
                     'images/stone-block.png',   // Row 1 of 3 of stone
@@ -172,7 +175,7 @@ var Engine = (function(global) {
             for (row = 0; row < numRows; row++) {
                 for (col = 0; col < numCols; col++) {
                     ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
-                    // Text to display over the game board
+                    // Text for display on empty game board
                     ctx.fillStyle = 'white';
                     ctx.font = '50px Poiret One';
                     ctx.textAlign = "center";
@@ -186,9 +189,7 @@ var Engine = (function(global) {
                     ctx.textAlign = "center";
                     ctx.fillText('Use the arrow keys to move', canvas.width/2, canvas.height/3.3);
                     ctx.fillText('Cross the grass and stone streets to get to the water.', canvas.width/2, canvas.height/3.0);
-                    //ctx.fillText("Difficulty increases when you reach water", canvas.width/2, canvas.height/2.75);
-                    //ctx.fillText("Collect hearts for extra lives", canvas.width/2, canvas.height/2.55);
-                    ctx.fillText("Avoid the ladybugs to stay alive", canvas.width/2, canvas.height/2.37);
+                    ctx.fillText("If you crash into a ladybug, you lose a life", canvas.width/2, canvas.height/2.37);
                     ctx.fillStyle = "red";
                     ctx.font = '20px Poiret One';
                     ctx.textAlign = 'center';
@@ -264,7 +265,7 @@ var Engine = (function(global) {
                     ctx.fillStyle = 'white';
                     ctx.font = '50px Poiret One';
                     ctx.textAlign = "center";
-                    ctx.fillText('Game Over', canvas.width/2, canvas.height/5.5);
+                    ctx.fillText('Hooray! You Won!', canvas.width/2, canvas.height/5.5);
 
                     ctx.fillStyle = "red";
                     ctx.font = '25px Poiret One';
@@ -274,8 +275,9 @@ var Engine = (function(global) {
                     ctx.fillStyle = 'red';
                     ctx.font = '20px Poiret One';
                     ctx.textAlign = "center";
-                    ctx.fillText('Thanks for Playing!', canvas.width/2, canvas.height/3.3);
+                    ctx.fillText('Game over. Thanks for Playing!', canvas.width/2, canvas.height/3.3);
                     }}
+                    ctx.clearRect(0, 0, canvas.width, 50);
                   break;
 
 
@@ -301,7 +303,7 @@ var Engine = (function(global) {
                     ctx.fillStyle = 'red';
                     ctx.font = '25px Poiret One';
                     ctx.textAlign = "center";
-                    ctx.fillText('Sorry, you lost. Game Over', canvas.width/2, canvas.height/5.5);
+                    ctx.fillText('Sorry, you lost. Game Over.', canvas.width/2, canvas.height/5.5);
 
                     ctx.fillStyle = "red";
                     ctx.font = '20px Poiret One';
